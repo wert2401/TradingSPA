@@ -1,0 +1,17 @@
+.items-holder{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.item {
+    margin: 5px;
+    padding: 5px;
+    background: lightslategrey;
+    width: 150px;
+    min-height: 150px;
+    border: solid darkslategrey 5px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+}

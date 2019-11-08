@@ -231,5 +231,5 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-# React application
-ClientApp/
+# React node_modules application
+ClientApp/node_modules
