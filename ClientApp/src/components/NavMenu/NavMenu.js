@@ -7,7 +7,9 @@ export class NavMenu extends Component {
   render () {
     return (
       <header>
-        <h1>Ну шо торгуем?</h1>
+        <h1>Dota Market And Steam</h1>
+        <span className="line_1"></span>
+        <span className="line_2"></span>
       </header>
     );
   }

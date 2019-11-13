@@ -23,20 +23,32 @@ export class Home extends Component {
     var items = this.state.items;
     return items.map(item => (
       <a href={"https://market.dota2.net/item/" + item.idFirst + "-" + item.idSecond} target="_blank">
-        <div className="item">
-          <div>Name: {item.name}</div>
-          <div>Price: {item.price.toFixed(3)} $</div>
-          <div>Price: {item.steamPrice} $</div>
-          <div>Good: ?</div>
+      <div className="item">
+        <div className="item__foreground">
+          <div className="item__text">Name: {item.name}</div>
+          <div className="item__line" style={{background: "rgba(255, 77, 0, 0.5)", transition: "all 0.7s"}}></div>
+          <div className="item__text">Price: {item.price.toFixed(3)}</div>
+          <div className="item__line" style={{background: "rgba(255, 77, 0, 0.75)", transition: "all 0.85s"}}></div>
+          <div className="item__text">Steam price: {item.steamPrice.toFixed(3)}$</div>
+          <div className="item__line" style={{background: "rgba(255, 77, 0, 1)", transition: "all 1s"}}></div>
+          <div className="item__text">Value: {(((item.steamPrice / item.price) - 1) * 100).toFixed(2)}%</div>
         </div>
-      </a>
+        <div className="item__background"></div>
+      </div>
+    </a>
     ))
+  }
+
+  wait() {
+    return (
+      <div className="waitText">Загружаю твою выгоду...</div>
+    )
   }
 
   render() {
     return (
       <div className="items-holder">
-        {this.state.state === "ready" ? this.renderList() : "Загружаю твою выгоду..."}
+        {this.state.state === "ready" ? this.renderList() : this.wait()}
       </div>
     );
   }
