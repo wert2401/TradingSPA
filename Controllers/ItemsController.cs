@@ -91,11 +91,11 @@ namespace TradingSite.Controllers
                     {
                         if ((DateTime.Now - dbItem.UpTime).TotalMinutes < 30)
                         {
+                            dbItem.Price = item.Price;
                             responseItems.Add(dbItem);
                             itemsToRemove.Add(item);
-                            Console.WriteLine("1");
+                            _context.Attach(dbItem);
                         }
-                        item.Id = dbItem.Id;
                     }
                 }
                 foreach (Item rmItem in itemsToRemove)
@@ -124,19 +124,19 @@ namespace TradingSite.Controllers
                         Console.WriteLine(res.Name + " : " + res.SteamPrice);
                         if (res.SteamPrice != -100)
                         {
-                            responseItems.Add(res);
-                            //Item dbItem = _context.Items.Where(c => c.Name == res.Name).FirstOrDefault();
-                            //if (dbItem != null)
-                            //{
-                            //    dbItem.SteamPrice = res.SteamPrice;
-                            //    dbItem.UpTime = res.UpTime;
-                            //    _context.Attach(dbItem);
-
-                            //}
-                            //else
-                            //{
+                            Item dbItem = _context.Items.Where(c => c.Name == res.Name && c.IdSecond == res.IdSecond).FirstOrDefault();
+                            if (dbItem != null)
+                            {
+                                dbItem.SteamPrice = res.SteamPrice;
+                                dbItem.UpTime = res.UpTime;
+                                responseItems.Add(dbItem);
+                                _context.Attach(dbItem);
+                            }
+                            else
+                            {
+                                responseItems.Add(res);
                                 _context.Items.Update(res);
-                            //}
+                            }
                         }
                     }
                     taskPool.Clear();
