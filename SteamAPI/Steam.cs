@@ -11,7 +11,7 @@ namespace TradingSite.SteamAPI
         {
             try
             {
-                var response = client.GetAsync("https://steamcommunity.com/market/search/render/?norender=1&query=" + item.Name.Replace("'", "%27").Replace(" ", "%20")).Result;
+                var response = client.GetAsync("https://steamcommunity.com/market/search/render/?norender=1&query=" + Uri.EscapeUriString(item.Name)).Result;
                 string respString = response.Content.ReadAsStringAsync().Result;
                 string price = Regex.Match(respString, @"sell_price..(\d+),").Groups[1].Value;
                 string imageHref = "https://steamcommunity-a.akamaihd.net/economy/image/" + Regex.Match(respString, "icon_url\":\"(.+?)\"").Groups[1].Value;

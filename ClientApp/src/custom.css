@@ -13,16 +13,23 @@ body {
   max-width: 880px;
 }
 
-a {
-  color: #0366d6;
-}
-
 code {
   color: #E01A76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.button{
+	display: block;
+	margin: 3px auto;
+	color: #FF0000;
+	border: none;
+	width: 175px;
+	height: 40px;
+	background: #443737;
+	transition: all 0.4s;
+}
+
+.button:hover{
+	border: solid #443737 2px;
+	background: #FF0000;
+	color: #443737;
 }

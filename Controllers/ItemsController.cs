@@ -34,13 +34,13 @@ namespace TradingSite.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public List<Item> Get()
+        [HttpGet("{types}")]
+        public List<Item> Get(string types)
         {
             try
             {
                 //Получение листа предметов с одной страницы с маркета
-                List<Item> items = DotaMarket.GetItems();
+                List<Item> items = DotaMarket.GetItems(types);
                 
                 //Создание разных клиентов с разными прокси серверами
                 List<HttpClient> clients = new List<HttpClient>();
@@ -55,7 +55,7 @@ namespace TradingSite.Controllers
                     clients.Add(new HttpClient(handler));
                 }
 
-                //Получение цены каждого предмета с торговой площадки
+                //Блок с получением цены каждого предмета с торговой площадки
                 List<Item> responseItems = new List<Item>();
                 List<Task<Item>> taskPool = new List<Task<Item>>();
 
@@ -98,12 +98,13 @@ namespace TradingSite.Controllers
                         }
                     }
                 }
+
                 foreach (Item rmItem in itemsToRemove)
                 {
                     items.Remove(rmItem);
                 }
+
                 //Медленный способ запросов на стим площадку, обновление базы данных.
-                Console.WriteLine("\nSearch Count: " + items.Count);
                 int temp = items.Count / Proxies.Count();
                 for (int i = 0; i < temp + 1; i++)
                 {
@@ -121,7 +122,7 @@ namespace TradingSite.Controllers
                     for (int y = 0; y < taskPool.Count(); y++)
                     {
                         Item res = taskPool[y].Result;
-                        Console.WriteLine(res.Name + " : " + res.SteamPrice);
+                        Console.WriteLine("Not Loaded: " + res.Name);
                         if (res.SteamPrice != -100)
                         {
                             Item dbItem = _context.Items.Where(c => c.Name == res.Name && c.IdSecond == res.IdSecond).FirstOrDefault();
@@ -148,12 +149,11 @@ namespace TradingSite.Controllers
                     client.Dispose();
                 }
                 _context.SaveChanges();
-                Console.WriteLine("Response Items: " + responseItems.Count() + "\n");
+                Console.WriteLine("Items delivered: " + responseItems.Count().ToString());
                 return responseItems;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
                 throw;
             }
         }

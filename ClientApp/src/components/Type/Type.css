@@ -1,0 +1,37 @@
+.type{
+	display: flex;
+	align-items: center;
+	//margin-right: 5px;
+	margin-bottom: 2px;
+	background: rgba(39, 33, 33, 0.4);
+	padding: 5px 10px;
+	transition: all 0.7s;
+	color: #443737;
+	cursor: pointer;
+}
+
+.type .text{
+	font-size: 22px;
+}
+
+.type .text::selection{
+	background: none;
+}
+
+.type img{
+	display: none;
+	margin-left: 5px;
+}
+
+.type img::selection{
+	background: none;
+}
+
+.active img{
+	display: block;
+}
+
+.active{
+	color: #FF4D00;
+	background: rgba(39, 33, 33, 0.7);;
+}
