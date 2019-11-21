@@ -22,7 +22,7 @@ namespace TradingSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDatabaseContext>(o => o.UseMySql("server=localhost;user=root;database=tradingsite;password=12345;"));
+            services.AddDbContext<AppDatabaseContext>(o => o.UseMySql(Configuration.GetConnectionString("MyDbConnection")));
 
             services.AddControllers();
 
@@ -63,7 +63,7 @@ namespace TradingSite
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+                    spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
