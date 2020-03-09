@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TradingSite.Migrations
@@ -12,14 +12,15 @@ namespace TradingSite.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdFirst = table.Column<string>(nullable: true),
                     IdSecond = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     IsGood = table.Column<bool>(nullable: false),
                     SteamPrice = table.Column<double>(nullable: false),
-                    ImageHref = table.Column<string>(nullable: true)
+                    ImageHref = table.Column<string>(nullable: true),
+                    UpTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

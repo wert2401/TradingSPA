@@ -51,7 +51,7 @@ namespace TradingSite.Controllers
 
                 return responseItems;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

@@ -23,6 +23,10 @@ namespace TradingSite.MarketAPI
                 List<string[]> strings = JsonConvert.DeserializeObject<List<string[]>>(responseText);
                 foreach (string[] stringObj in strings)
                 {
+                    if (stringObj[1] == null)
+                    {
+                        continue;
+                    }
                     Item item = new Item
                     {
                         IdFirst = stringObj[0],

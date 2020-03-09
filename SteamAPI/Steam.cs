@@ -20,7 +20,7 @@ namespace TradingSite.SteamAPI
                 item.UpTime = DateTime.Now;
                 return item;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return item;
             }
